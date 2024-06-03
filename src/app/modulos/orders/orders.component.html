@@ -1,0 +1,49 @@
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="orders" [rows]="10" [paginator]="true" [globalFilterFields]="['id']"
+        [(selection)]="selectedOrders" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Manage Orders</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" placeholder="Search..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="customerId">Customer <p-sortIcon field="fullName"></p-sortIcon></th>
+                <th pSortableColumn="total">Total <p-sortIcon field="fullName"></p-sortIcon></th>
+                <th pSortableColumn="address"> Address <p-sortIcon field="fullName"></p-sortIcon></th>
+                <th pSortableColumn="date">Date <p-sortIcon field="fullName"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-order>
+            <tr>
+                <td>{{order.id}}</td>
+                <td>{{order.customerId}}</td>
+                <td>{{order.total | currency:'USD'}}</td>
+                <td>{{order.address}}</td>
+                <td>{{order.date}}</td>
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2" (click)="editProduct(order)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteProduct(order)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                In total there are {{orders ? orders.length : 0 }} orders.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
